@@ -60,7 +60,7 @@ app.get('/redirect', function(req, res) {
   // Build the post request for the OAuth endpoint
   var options = {
       method: 'POST',
-      url: 'https://foursquare.com/oauth2/access_token',
+      url: 'https://yaska.zendesk.com/oauth/tokens',
       form: requestObject,
       headers: token_request_header
   };
