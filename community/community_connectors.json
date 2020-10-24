@@ -1,5 +1,14 @@
 [
     {
+        "name": "Covid19 India Live Data Tracker",
+        "url": "https://webdataconnectortableau.blogspot.com/2020/05/blog-post.html",
+        "author": "Neel Shah",
+        "github_username": "NeelShah00",
+        "tags": ["v_1.0"],
+        "description": "WDC that provides updates from official source",
+        "source_code": ""
+    },
+    {
         "name": "AdStage",
         "url": "http://tech.adstage.io/tableau_connector/AdstageConnector.html",
         "author": "David Haslem",
@@ -600,6 +609,16 @@
         "description": "Visualize chemical compounds in 3d!",
         "source_code": "https://github.com/runonthespot/PubChemWDC"
     },
+    {
+    "name": "PurpleAir Sensors Current Readings",
+    "url": "https://jetarcher.github.io/PurpleAir/PurpleAirSensorList.html",
+    "author": "Patrick Bowman",
+    "github_username": "jetarcher",
+    "tags": ["v_1.0"],
+    "description": "PurpleAir air quality sensors with current readings for PM2.5 (2.5 micron particulate matter)",
+    "source_code": "https://github.com/jetarcher/PurpleAir"
+    },
+
     {
         "name": "Quandl",
         "url": "http://data.theinformationlab.co.uk/quandl.html",
