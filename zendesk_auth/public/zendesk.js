@@ -60,7 +60,7 @@ function doAuthRedirect() {
 function getVenueLikesURI(accessToken) {
     //return "https://api.foursquare.com/v2/users/self/venuelikes?oauth_token=" +
       //      accessToken + "&v=" + config.version;
-      return "https://yaska.zendesk.com/api/v2/users.json";
+      return "https://yaska.zendesk.com/api/v2/tickets.json";
             
 }
 
@@ -124,10 +124,10 @@ myConnector.init = function(initCallback) {
 myConnector.getSchema = function(schemaCallback) {
    var schema = [];
 
-    var col1 = { id: "Id", dataType: "string"};
-    var col2 = { id: "Latitude", dataType: "float"};
-    var col3 = { id: "Longitude", dataType: "float"};
-    var col4 = { id: "Address", dataType: "string"};
+    var col1 = { id: "url", dataType: "string"};
+    var col2 = { id: "id", dataType: "float"};
+    var col3 = { id: "status", dataType: "string"};
+    var col4 = { id: "recipient", dataType: "string"};
     var cols = [col1, col2, col3, col4];
 
     var tableInfo = {
@@ -149,23 +149,29 @@ myConnector.getData = function(table, doneCallback) {
     var accessToken = tableau.password;
     var connectionUri = getVenueLikesURI(accessToken);
 
+
     var xhr = $.ajax({
         //url: connectionUri,
-        url: "https://yaska.zendesk.com/api/v2/tickets.json",
+        url: 'https://yaska.zendesk.com/api/v2/tickets.json',
         beforeSend: function(request) {
-          request.setRequestHeader("Authorization", "Bearer " +  accessToken);
+          request.setRequestHeader('Authorization', 'Bearer ' +  accessToken);
         },
         dataType: 'json',
         success: function (data) {
-            if (data.response) {
-                var venues = data.response.venues.items;
 
+          
+            if (data) {
+              console.log(data);
+                //var venues = data.response.venues.items;
+                var tickets = data.tickets;
                 var ii;
-                for (ii = 0; ii < venues.length; ++ii) {
-                    var venue = {'Name': venues[ii].name,
-                                 'Latitude': venues[ii].location.lat,
-                                 'Longitude': venues[ii].location.lng,
-                                 'Address' : venues[ii].location.address};
+                for (ii = 0; ii < tickets.length; ++ii) {
+                  var venue = { 'url': tickets[ii].url,
+                                'id': tickets[ii].id,
+                                'status': tickets[ii].status,
+                                'recipient': tickets[ii].recipient
+                                };
+                                 
                     dataToReturn.push(venue);
                 }
 
@@ -175,6 +181,7 @@ myConnector.getData = function(table, doneCallback) {
             else {
                 tableau.abortWithError("No results found");
             }
+            
         },
         error: function (xhr, ajaxOptions, thrownError) {
             // WDC should do more granular error checking here
